@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ed4aa01a814ec733dce4ab02b30424c",
+    "content-hash": "370f2fbabc101aa841703d6e1c839256",
     "packages": [
         {
             "name": "brick/math",
@@ -892,6 +892,75 @@
                 }
             ],
             "time": "2022-03-20T21:55:58+00:00"
+        },
+        {
+            "name": "iamfarhad/validation",
+            "version": "v2.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iamfarhad/validation.git",
+                "reference": "032547f4a1d71b17fd505394561b090887448c4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iamfarhad/validation/zipball/032547f4a1d71b17fd505394561b090887448c4f",
+                "reference": "032547f4a1d71b17fd505394561b090887448c4f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0|^8.0|^9.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.9|^6.23|^7.0",
+                "phpunit/phpunit": "^9.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Iamfarhad\\Validation\\ValidationRulesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Iamfarhad\\Validation\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Farhad Zand",
+                    "email": "farhad.pd@gmail.com"
+                }
+            ],
+            "description": "laravel persian validation package",
+            "keywords": [
+                "custom",
+                "farsi",
+                "iran",
+                "laravel",
+                "lumen",
+                "persian",
+                "rule",
+                "validation",
+                "validator"
+            ],
+            "support": {
+                "issues": "https://github.com/iamfarhad/validation/issues",
+                "source": "https://github.com/iamfarhad/validation/tree/v2.3.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/iamfarhad",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-01T13:16:19+00:00"
         },
         {
             "name": "laravel/framework",

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Winner extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['cell_number', 'code_id'];
 }
