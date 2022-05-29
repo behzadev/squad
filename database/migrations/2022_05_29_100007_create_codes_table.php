@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
-            $table->string('value');
+            $table->string('value')->index();
             $table->unsignedInteger('count_init');
             $table->unsignedInteger('count_left');
             $table->timestamps();
