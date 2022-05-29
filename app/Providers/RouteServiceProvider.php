@@ -48,8 +48,14 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting()
     {
+        /**
+         * Since we might get too many requests from same IP of the SMS service provider, we need to set it to null.
+         * we're gonnna push messages to queue and deal with them later.
+         */
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+            return $request->route()->getName() == 'api.v1.winners.store'
+                ? Limit::none()
+                : Limit::perMinute(60);
         });
     }
 }
