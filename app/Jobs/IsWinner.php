@@ -45,7 +45,7 @@ class IsWinner implements ShouldQueue
         }
 
         if ($code->isUsable()) {
-            Winner::create([
+            Winner::firstOrCreate([
                 'cell_number' => $this->number,
                 'code_id' => $code->id,
             ]);

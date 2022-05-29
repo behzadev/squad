@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('winners', function (Blueprint $table) {
             $table->id();
-            $table->string('cell_number', 11)->index();
+            $table->string('cell_number', 11)->unique()->index();
             $table->foreignId('code_id');
             $table->foreign('code_id')->references('id')->on('codes')->onDelete('restrict');
             $table->timestamps();
