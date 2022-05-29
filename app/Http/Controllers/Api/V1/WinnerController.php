@@ -4,14 +4,20 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Models\Code;
 use App\Jobs\IsWinner;
-use Tests\Feature\WinnerTest;
+use Illuminate\Http\Response;
 use App\Http\Requests\StoreWinner;
 use App\Http\Requests\QueryWinners;
 use App\Http\Controllers\Controller;
 
 class WinnerController extends Controller
 {
-    public function store(StoreWinner $request)
+    /**
+     * This endpoint gets hit by sms service provider
+     *
+     * @param StoreWinner $request
+     * @return Response
+     */
+    public function store(StoreWinner $request): Response
     {
         IsWinner::dispatch(
             $request->number,
@@ -23,7 +29,13 @@ class WinnerController extends Controller
         ], 200);
     }
 
-    public function query(QueryWinners $request)
+    /**
+     * Query winners to check if a cell number with a code is winner or not
+     *
+     * @param QueryWinners $request
+     * @return Response
+     */
+    public function query(QueryWinners $request): Response
     {
         $code = Code::where('value', $request->code)->first();
         if (!$code) {
