@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting()
     {
         /**
-         * Since we might get too many requests from same IP of the SMS service provider, we need to set it to null.
+         * Since we might get too many requests from same IP of the SMS service provider, we need to set it to none.
          * we're gonnna push messages to queue and deal with them later.
          */
         RateLimiter::for('api', function (Request $request) {
