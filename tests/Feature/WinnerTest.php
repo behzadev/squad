@@ -93,7 +93,6 @@ class WinnerTest extends TestCase
     public function it_should_not_allow_same_cell_number_to_win_more_than_once()
     {
         // given we already have a winner with cell number of 09122384604 and a working code
-
         $code = \App\Models\Code::factory(1)->create([
             'value' => 'test',
             'count_init' => 1000,
@@ -149,5 +148,94 @@ class WinnerTest extends TestCase
 
         // and the response code should be 200
         $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_deduct_number_of_count_left_of_code_if_winner_is_added()
+    {
+        // given we have a code with count_left of 1000
+        $code = \App\Models\Code::factory(1)->create([
+            'value' => 'test',
+            'count_init' => 1000,
+            'count_left' => 1000
+        ])->first();
+
+        // when we get a new message
+        $response = $this->json(
+            'POST',
+            route('api.v1.winners.store'),
+            [
+                'number' => '09122384604',
+                'message' => 'test'
+            ]
+        );
+
+        // then we should have count_left of 999
+        $this->assertEquals(999, $code->fresh()->count_left);
+
+        // and the response code should be 200
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_recognize_numbers_which_won()
+    {
+        // given we have a winner
+        $code = \App\Models\Code::factory(1)->create([
+            'value' => 'test',
+            'count_init' => 1000,
+            'count_left' => 500
+        ])->first();
+
+        \App\Models\Winner::factory(1)->create([
+            'cell_number' => '09122384604',
+            'code_id' => $code->id
+        ]);
+
+        // when we query database to check if he's a winner
+        $response = $this->json(
+            'POST',
+            route('api.v1.winners.query'),
+            [
+                'cell_number' => '09122384604',
+                'code' => 'test'
+            ]
+        );
+
+        // then is_winner should be true with response code should be 200 with
+        $response
+            ->assertJsonFragment([
+                'is_winner' => true
+            ])
+            ->assertStatus(200);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_recognize_numbers_which_did_not_win()
+    {
+        // given we have no winners
+
+        // when we query to check if a random number is winner
+        $response = $this->json(
+            'POST',
+            route('api.v1.winners.query'),
+            [
+                'cell_number' => '09122384604',
+                'code' => 'test'
+            ]
+        );
+
+        // then is_winner should be false with response code should be 200 with
+        $response
+            ->assertJsonFragment([
+                'is_winner' => false
+            ])
+            ->assertStatus(200);
     }
 }
